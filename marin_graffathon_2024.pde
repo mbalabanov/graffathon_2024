@@ -42,13 +42,16 @@ String[] lines = {
   " ",
   "Made for Graffathon 2024"
 };
+
+String crawlLines =   "Demo by Marin \"Bala-Koala\" Balabanov\n\nMusic \"Go Cart - Loop Mix\" by Kevin MacLeod\n(incompetech.com)\n\nMade for Graffathon 2024"; 
+
 float textY;
 
 void setup() {
   // noCursor();
   // fullScreen();
   frameRate(60);
-  size(1920, 1080);
+  size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
@@ -61,16 +64,16 @@ void setup() {
 void draw() {
   int elapsedTime = millis() - startTime;
 
-  if (elapsedTime < 8000) {
+  if (elapsedTime < 6000) {
     starLines();    
-  } else if (elapsedTime < 14000) {
+  } else if (elapsedTime < 10000) {
     rectyMess();
-  } else if (elapsedTime < 22000) {
+  } else if (elapsedTime < 16000) {
     bouncingEllipses();
-  } else if (elapsedTime < 30000) {
+  } else if (elapsedTime < 20000) {
     pulsatingRectangles();
-  } else if (elapsedTime < 40000) {
-    creditScroll();
+  } else if (elapsedTime < 44000) {
+    closingCrawl();
   } else {
     stopDemo();
   }
@@ -291,4 +294,14 @@ void creditScroll() {
   if (textY + lines.length * 60 < 0) {
     textY = height;
   }
+}
+
+void closingCrawl() {
+  background(0);
+  fill(255,255,0);
+  translate(width/2-400, height);
+  rotateX(PI/3.0);
+  textSize(80);
+  text(crawlLines, 0, textY, 1100, 3600);
+  textY -= 1;
 }
