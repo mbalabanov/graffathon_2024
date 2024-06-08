@@ -117,7 +117,7 @@ void draw() {
     bouncingEllipses();
   } else if (elapsedTime < 43000) {
     pulsatingRectangles();
-  } else if (elapsedTime < 57000) {
+  } else if (elapsedTime < 59000) {
     blinkColors();
   } else if (elapsedTime < 72000) {
     creditScroll();
