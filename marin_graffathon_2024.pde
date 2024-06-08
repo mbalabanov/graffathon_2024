@@ -2,7 +2,7 @@
 /*
 Music Credits
 =============
-"Go Cart - Loop Mix" Kevin MacLeod (incompetech.com)
+"Kick Shock" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
 */
@@ -17,20 +17,20 @@ int startTime;
 // Init for bouncing ellipses scene
 float ellipsesX = width / 2;
 float ellipsesY = height / 2;
-float ellipsesXSpeed = 30;
-float ellipsesYSpeed = 30;
+float ellipsesXSpeed = 20;
+float ellipsesYSpeed = 20;
 
 // Init for recty mess scene
 float rectyX;
 float rectyY;
-float rectyXSpeed = 20;
-float rectyYSpeed = 20;
+float rectyXSpeed = 10;
+float rectyYSpeed = 10;
 int rectSize1 = 600;
 int rectSize2 = 1800;
 int rectSize3 = 4000;
 
 // Init for star lines scene
-int numLines = 24;
+int numLines = 18;
 float angle = 0;
 
 // Init scrolling text
@@ -43,22 +43,21 @@ String[] lines = {
   "Made for Graffathon 2024"
 };
 
-String crawlLines =   "Demo by Marin \"Bala-Koala\" Balabanov\n\nMusic \"Go Cart - Loop Mix\" by Kevin MacLeod\n(incompetech.com)\n\nMade for Graffathon 2024"; 
-
 float textY;
 
 void setup() {
   // noCursor();
   // fullScreen();
   frameRate(60);
-  size(1920, 1080, P3D);
+  size(1920, 1080);
+  // size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
-  player = minim.loadFile("music/go-cart-loop-mix.mp3");
+  player = minim.loadFile("music/kick-shock.mp3");
   player.play();
   
-  textY = height; // Initialize text position at the bottom of the screen
+  textY = height;
 }
 
 void draw() {
@@ -73,7 +72,7 @@ void draw() {
   } else if (elapsedTime < 20000) {
     pulsatingRectangles();
   } else if (elapsedTime < 44000) {
-    closingCrawl();
+    creditScroll();
   } else {
     stopDemo();
   }
@@ -249,7 +248,8 @@ void pulsatingRectangles() {
 
 void starLines() {
   noStroke();
-   
+  
+  // Gradient
   for (int y = 0; y < height; y++) {
     float inter = map(y, 0, height, 0, 1);
     int c = lerpColor(color(255, 100, 150), color(100, 150, 255), inter);
@@ -273,35 +273,13 @@ void starLines() {
 }
 
 void creditScroll() {
-  textSize(100); // Set text size
-  textAlign(CENTER, CENTER);
-  fill(255, 255, 100);
- 
-  for (int y = 0; y < height; y++) {
-    float inter = map(y, 0, height, 0, 1);
-    int c = lerpColor(color(139, 0, 0), color(75, 0, 130), inter);
-    stroke(c);
-    line(0, y, width, y);
-  }
-  
-  // Scroll text
-  background(0, 0, 0, 0); // Transparent background to avoid flickering
-  for (int i = 0; i < lines.length; i++) {
-    text(lines[i], width / 2, textY + i * 120); // Adjust the spacing between lines as needed
-  }
-  textY -= 1; // Move text upwards
-  
-  if (textY + lines.length * 60 < 0) {
-    textY = height;
-  }
-}
-
-void closingCrawl() {
-  background(0);
-  fill(255,255,0);
-  translate(width/2-400, height);
-  rotateX(PI/3.0);
   textSize(80);
-  text(crawlLines, 0, textY, 1100, 3600);
-  textY -= 1;
+  textAlign(CENTER, CENTER);
+  fill(220, 200, 20);
+  
+  background(0, 0, 0, 0);
+  for (int i = 0; i < lines.length; i++) {
+    text(lines[i], width / 2, textY + i * 60);
+  }
+  textY -= 3;
 }
