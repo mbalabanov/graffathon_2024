@@ -45,7 +45,8 @@ String[] lines = {
   "Music \"Go Cart - Loop Mix\" by Kevin MacLeod",
   "(incompetech.com)",
   " ",
-  "Made for Graffathon 2024"
+  "Made for Graffathon 2024",
+  "using Processing"
 };
 float textY;
 
@@ -87,11 +88,11 @@ float minRadius = 100;
 float speed = 5;
 
 void setup() {
-  // noCursor();
-  // fullScreen();
-  // frameRate(60);
-  size(1920, 1080);
-  // size(1920, 1080, P3D);
+  noCursor();
+  fullScreen();
+  frameRate(60);
+  // size(1920, 1080);
+  size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
@@ -270,7 +271,6 @@ void pulsatingRectangles() {
 
     while (i < 22) {
         i = i + 1;
-        println(i);
 
         int j = 0;
         while (j < 12) {
