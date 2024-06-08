@@ -94,7 +94,7 @@ void setup() {
   startTime = millis();
   
   minim = new Minim(this);
-  player = minim.loadFile("music/kick-shock.mp3");
+  player = minim.loadFile("data/kick-shock.mp3");
   player.play();
   
   textY = height;
@@ -125,9 +125,9 @@ void draw() {
     pulsatingRectangles();
   } else if (elapsedTime < 57000) {
     blinkColors();
-  } else if (elapsedTime < 66000) {
+  } else if (elapsedTime < 64000) {
     creditScroll();
-  } else if (elapsedTime < 68000) {
+  } else if (elapsedTime < 66000) {
     expandingCircles();
   } else {
     stopDemo();
@@ -326,7 +326,7 @@ void starLines(int rA, int gA, int bA) {
 
 
 void glitchTextFlash(String glitchedText, int colR, int colG, int colB) {
-  font = createFont("Arial-Bold", 540, true);
+  font = createFont("Arial", 540, true);
   textFont(font);
   textAlign(CENTER, CENTER);
 
