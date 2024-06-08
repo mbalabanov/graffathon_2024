@@ -87,10 +87,10 @@ float speed = 5;
 
 void setup() {
   // noCursor();
-  fullScreen();
-  frameRate(60);
-  // size(1920, 1080);
-  size(1920, 1080, P3D);
+  // fullScreen();
+  // frameRate(60);
+  size(1920, 1080);
+  // size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
@@ -221,11 +221,12 @@ void bouncingEllipses() {
   if (ellipsesY > height - 25 || ellipsesY < 25) {
     ellipsesYSpeed *= -1; // Reverse the vertical direction
   }
+
 }
 
 
 void rectyMess() {
-  drawRectyMess(rectyX + 60, rectyY + 60, rectSize3, 90, 200, 40, 20, 16);
+  drawRectyMess(rectyX + 60, rectyY + 60, rectSize3, 90, 200, 40);
 
   rectyX += rectyXSpeed;
   rectyY += rectyYSpeed;
@@ -240,9 +241,9 @@ void rectyMess() {
 }
 
 
-void drawRectyMess(float cx, float cy, float diameter, int ballRed, int ballGreen, int ballBlue, int rowNum, int colNum) {
-  int rows = rowNum;
-  int cols = colNum;
+void drawRectyMess(float cx, float cy, float diameter, int ballRed, int ballGreen, int ballBlue) {
+  int rows = 20;
+  int cols = 16;
   float checkerSize = diameter / cols;
  
   for (int i = 0; i < rows; i++) {
