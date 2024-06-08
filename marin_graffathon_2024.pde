@@ -31,8 +31,8 @@ int rectSize2 = 1800;
 int rectSize3 = 4000;
 
 // Init for star lines scene
-int numLines = 18;
-float angle = 0;
+int numLines = 24;
+float angle = 2;
 
 // Set up for Glitch Flashes
 PFont font;
@@ -74,7 +74,7 @@ color[] blinkyColors = {
   color(0),
   color(255, 0, 128),
   color(0),
-  color(0, 128, 255),
+  color(0, 28, 255),
   color(0),
   color(128, 255, 0),
   color(0),
@@ -90,7 +90,6 @@ float speed = 5;
 void setup() {
   noCursor();
   fullScreen();
-  frameRate(60);
   // size(1920, 1080);
   size(1920, 1080, P3D);
   startTime = millis();
@@ -107,19 +106,19 @@ void draw() {
 
   if (elapsedTime < 3000) {
     glitchTextFlash("GLITCH", 64, 0, 0);
-  } else if (elapsedTime < 6000) {
+  } else if (elapsedTime < 7000) {
     starLines(255, 100, 150);
   } else if (elapsedTime < 9000) {
     rectyMess();
   } else if (elapsedTime < 11000) {
     glitchTextFlash("PITCH", 255, 96, 64);
-  } else if (elapsedTime < 13000) {
+  } else if (elapsedTime < 14000) {
     starLines(128, 255, 64);
-  } else if (elapsedTime < 19000) {
+  } else if (elapsedTime < 19600) {
     rectyMess();
-  } else if (elapsedTime < 21000) {
+  } else if (elapsedTime < 22000) {
     starLines(192, 128, 32);
-  } else if (elapsedTime < 24000) {
+  } else if (elapsedTime < 25000) {
     glitchTextFlash("ITCH", 64, 128, 200);
   } else if (elapsedTime < 29000) {
     bouncingEllipses();
@@ -378,7 +377,6 @@ void expandingCircles() {
     fill(random(1, 255), random(1, 255), random(1, 255), alpha);
     ellipse(width / 2, y, radius * 2, radius * 2);
   }
-  filter(BLUR, 2);
 }
 
 
