@@ -79,6 +79,12 @@ color[] blinkyColors = {
   color(255, 255, 255)
 };
 
+// Settings for expanding circles
+int numCircles = 8;
+float maxRadius = 800;
+float minRadius = 100;
+float speed = 5;
+
 void setup() {
   // noCursor();
   // fullScreen();
@@ -97,7 +103,7 @@ void setup() {
 void draw() {
   int elapsedTime = millis() - startTime;
 
-  if (elapsedTime < 4000) {
+  if (elapsedTime < 3000) {
     glitchTextFlash("GLITCH", 64, 0, 0);
   } else if (elapsedTime < 6000) {
     starLines(255, 100, 150);
@@ -117,10 +123,12 @@ void draw() {
     bouncingEllipses();
   } else if (elapsedTime < 43000) {
     pulsatingRectangles();
-  } else if (elapsedTime < 59000) {
+  } else if (elapsedTime < 57000) {
     blinkColors();
-  } else if (elapsedTime < 72000) {
+  } else if (elapsedTime < 66000) {
     creditScroll();
+  } else if (elapsedTime < 68000) {
+    expandingCircles();
   } else {
     stopDemo();
   }
@@ -132,6 +140,16 @@ void stopDemo() {
   player.close();
   minim.stop();
   super.stop();
+}
+
+
+void generateGradient(int colR, int colG, int colB) {
+  for (int y = 0; y < height; y++) {
+    float inter = map(y, 0, height, 0, 1);
+    int c = lerpColor(color(colR, colG, colB), color(colB, colG, colR), inter);
+    stroke(c);
+    line(0, y, width, y);
+  }  
 }
 
 
@@ -207,8 +225,6 @@ void bouncingEllipses() {
 
 
 void rectyMess() {
-  background(0);
-
   drawRectyMess(rectyX + 60, rectyY + 60, rectSize3, 90, 200, 40, 20, 16);
 
   rectyX += rectyXSpeed;
@@ -333,14 +349,6 @@ void glitchTextFlash(String glitchedText, int colR, int colG, int colB) {
   angleOffset += 2;
 }
 
-void generateGradient(int colR, int colG, int colB) {
-  for (int y = 0; y < height; y++) {
-    float inter = map(y, 0, height, 0, 1);
-    int c = lerpColor(color(colR, colG, colB), color(colB, colG, colR), inter);
-    stroke(c);
-    line(0, y, width, y);
-  }  
-}
 
 void blinkColors() {
   int currentTime = millis();
@@ -353,7 +361,26 @@ void blinkColors() {
   background(blinkyColors[currentColorIndex]);
 }
 
+
+void expandingCircles() {
+  noStroke();
+  background(random(1, 255), random(1, 255), random(1, 255), 40);
+
+  blendMode(ADD);
+  for (int i = 0; i < numCircles; i++) {
+    float radius = minRadius + ((maxRadius - minRadius) * (i / (float)numCircles));
+    float offset = (frameCount * speed) % height; // Calculate offset based on frame count and speed
+    float y = height - (i * height / numCircles + offset) % height; // Calculate y position
+    float alpha = map(y, height, 0, 0, 255); // Map alpha transparency based on y position
+
+    fill(random(1, 255), random(1, 255), random(1, 255), alpha);
+    ellipse(width / 2, y, radius * 2, radius * 2); // Draw the circle
+  }
+}
+
+
 void creditScroll() {
+  blendMode(NORMAL);
   textSize(80);
   textAlign(CENTER, CENTER);
   fill(220, 200, 20);
