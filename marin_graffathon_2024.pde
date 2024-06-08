@@ -125,9 +125,9 @@ void draw() {
     pulsatingRectangles();
   } else if (elapsedTime < 57000) {
     blinkColors();
-  } else if (elapsedTime < 64000) {
+  } else if (elapsedTime < 65000) {
     creditScroll();
-  } else if (elapsedTime < 66000) {
+  } else if (elapsedTime < 67000) {
     expandingCircles();
   } else {
     stopDemo();
