@@ -87,10 +87,10 @@ float speed = 5;
 
 void setup() {
   // noCursor();
-  // fullScreen();
-  // frameRate(60);
-  size(1920, 1080);
-  // size(1920, 1080, P3D);
+  fullScreen();
+  frameRate(60);
+  // size(1920, 1080);
+  size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
