@@ -214,12 +214,12 @@ void bouncingEllipses() {
   ellipsesX += ellipsesXSpeed;
   ellipsesY += ellipsesYSpeed;
 
-  if (ellipsesX > width - 25 || ellipsesX < 25) { // 25 is half the diameter of the circle
-    ellipsesXSpeed *= -1; // Reverse the horizontal direction
+  if (ellipsesX > width - 25 || ellipsesX < 25) {
+    ellipsesXSpeed *= -1;
   }
   
   if (ellipsesY > height - 25 || ellipsesY < 25) {
-    ellipsesYSpeed *= -1; // Reverse the vertical direction
+    ellipsesYSpeed *= -1;
   }
 
 }
@@ -370,13 +370,14 @@ void expandingCircles() {
   blendMode(ADD);
   for (int i = 0; i < numCircles; i++) {
     float radius = minRadius + ((maxRadius - minRadius) * (i / (float)numCircles));
-    float offset = (frameCount * speed) % height; // Calculate offset based on frame count and speed
-    float y = height - (i * height / numCircles + offset) % height; // Calculate y position
-    float alpha = map(y, height, 0, 0, 255); // Map alpha transparency based on y position
+    float offset = (frameCount * speed) % height;
+    float y = height - (i * height / numCircles + offset) % height;
+    float alpha = map(y, height, 0, 0, 128);
 
     fill(random(1, 255), random(1, 255), random(1, 255), alpha);
-    ellipse(width / 2, y, radius * 2, radius * 2); // Draw the circle
+    ellipse(width / 2, y, radius * 2, radius * 2);
   }
+  filter(BLUR, 2);
 }
 
 
