@@ -1,4 +1,3 @@
-
 /*
 Proecessing demo by Marin "Bala-Koala" Balabanov
 Website: http://marincomics.com
