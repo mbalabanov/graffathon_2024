@@ -33,6 +33,10 @@ int rectSize3 = 4000;
 int numLines = 18;
 float angle = 0;
 
+// Set up for Glitch Flashes
+PFont font;
+float angleOffset = 0;
+
 // Init scrolling text
 String[] lines = {
   "Demo by Marin \"Bala-Koala\" Balabanov",
@@ -42,7 +46,6 @@ String[] lines = {
   " ",
   "Made for Graffathon 2024"
 };
-
 float textY;
 
 void setup() {
@@ -63,15 +66,25 @@ void setup() {
 void draw() {
   int elapsedTime = millis() - startTime;
 
-  if (elapsedTime < 6000) {
-    starLines();    
-  } else if (elapsedTime < 10000) {
+  if (elapsedTime < 3000) {
+    glitchTextFlash("GLITCH", 64, 0, 0);
+  } else if (elapsedTime < 4000) {
+    starLines(255, 100, 150, 100, 150, 255);
+  } else if (elapsedTime < 9000) {
     rectyMess();
-  } else if (elapsedTime < 16000) {
-    bouncingEllipses();
+  } else if (elapsedTime < 10000) {
+    starLines(255, 100, 150, 100, 150, 255);
+  } else if (elapsedTime < 14000) {
+    rectyMess();
+  } else if (elapsedTime < 15000) {
+    starLines(255, 100, 150, 100, 150, 255);
+  } else if (elapsedTime < 17000) {
+    glitchTextFlash("ITCH", 0, 0, 128);
   } else if (elapsedTime < 20000) {
+    bouncingEllipses();
+  } else if (elapsedTime < 28000) {
     pulsatingRectangles();
-  } else if (elapsedTime < 44000) {
+  } else if (elapsedTime < 38000) {
     creditScroll();
   } else {
     stopDemo();
@@ -246,13 +259,13 @@ void pulsatingRectangles() {
     }
 }
 
-void starLines() {
+void starLines(int rA, int gA, int bA, int rB, int gB, int bB) {
   noStroke();
   
   // Gradient
   for (int y = 0; y < height; y++) {
     float inter = map(y, 0, height, 0, 1);
-    int c = lerpColor(color(255, 100, 150), color(100, 150, 255), inter);
+    int c = lerpColor(color(rA, gA, bA), color(rB, gB, bB), inter);
     stroke(c);
     line(0, y, width, y);
   }
@@ -270,6 +283,35 @@ void starLines() {
   }
   
   angle += 0.02;
+}
+
+void glitchTextFlash(String glitchedText, int colR, int colG, int colB) {
+  font = createFont("Arial-Bold", 540, true);
+  textFont(font);
+  textAlign(CENTER, CENTER);
+
+  for (int y = 0; y < height; y++) {
+    float inter = map(y, 0, height, 0, 1);
+    int c = lerpColor(color(colR, colG, colB), color(colB, colG, colR), inter);
+    stroke(c);
+    line(0, y, width, y);
+  }
+
+  float distortionAmount = sin(angleOffset) * 40;
+  
+  fill(255);
+  text(glitchedText, width / 2, height / 2);
+  
+  fill(255, 0, 0, 100);
+  text(glitchedText, width / 2 + distortionAmount, height / 2);
+  
+  fill(0, 255, 0, 100);
+  text(glitchedText, width / 2 - distortionAmount, height / 2);
+  
+  fill(0, 0, 255, 100);
+  text(glitchedText, width / 2, height / 2 + distortionAmount);
+
+  angleOffset += 2;
 }
 
 void creditScroll() {
