@@ -25,7 +25,7 @@ float rectyX;
 float rectyY;
 float rectyXSpeed = 10;
 float rectyYSpeed = 10;
-int rectSize1 = 600;
+int rectSize1 = 400;
 int rectSize2 = 1800;
 int rectSize3 = 4000;
 
@@ -48,10 +48,41 @@ String[] lines = {
 };
 float textY;
 
+// Setup blinking colors
+int currentColorIndex = 0;
+int changeInterval = 400;
+int lastChangeTime = 0;
+
+color[] blinkyColors = {
+  color(255, 0, 0),
+  color(0),
+  color(0, 255, 0),
+  color(0),
+  color(0, 0, 255),
+  color(0),
+  color(255, 255, 0),
+  color(0),
+  color(255, 0, 255),
+  color(0),
+  color(0, 255, 255),
+  color(0),
+  color(255, 128, 0),
+  color(0),
+  color(128, 0, 255),
+  color(0),
+  color(255, 0, 128),
+  color(0),
+  color(0, 128, 255),
+  color(0),
+  color(128, 255, 0),
+  color(0),
+  color(255, 255, 255)
+};
+
 void setup() {
   // noCursor();
   // fullScreen();
-  frameRate(60);
+  // frameRate(60);
   size(1920, 1080);
   // size(1920, 1080, P3D);
   startTime = millis();
@@ -66,30 +97,35 @@ void setup() {
 void draw() {
   int elapsedTime = millis() - startTime;
 
-  if (elapsedTime < 3000) {
+  if (elapsedTime < 4000) {
     glitchTextFlash("GLITCH", 64, 0, 0);
-  } else if (elapsedTime < 4000) {
-    starLines(255, 100, 150, 100, 150, 255);
+  } else if (elapsedTime < 6000) {
+    starLines(255, 100, 150);
   } else if (elapsedTime < 9000) {
     rectyMess();
-  } else if (elapsedTime < 10000) {
-    starLines(255, 100, 150, 100, 150, 255);
-  } else if (elapsedTime < 14000) {
+  } else if (elapsedTime < 11000) {
+    glitchTextFlash("TWITCH", 200, 96, 228);
+  } else if (elapsedTime < 13000) {
+    starLines(128, 255, 64);
+  } else if (elapsedTime < 19000) {
     rectyMess();
-  } else if (elapsedTime < 15000) {
-    starLines(255, 100, 150, 100, 150, 255);
-  } else if (elapsedTime < 17000) {
-    glitchTextFlash("ITCH", 0, 0, 128);
-  } else if (elapsedTime < 20000) {
+  } else if (elapsedTime < 21000) {
+    starLines(192, 128, 32);
+  } else if (elapsedTime < 24000) {
+    glitchTextFlash("ITCH", 255, 128, 200);
+  } else if (elapsedTime < 29000) {
     bouncingEllipses();
-  } else if (elapsedTime < 28000) {
+  } else if (elapsedTime < 43000) {
     pulsatingRectangles();
-  } else if (elapsedTime < 38000) {
+  } else if (elapsedTime < 57000) {
+    blinkColors();
+  } else if (elapsedTime < 72000) {
     creditScroll();
   } else {
     stopDemo();
   }
-} 
+
+}
 
 void stopDemo() {
   player.close();
@@ -180,6 +216,51 @@ void bouncingEllipses() {
   }
 }
 
+
+void bluelipses() {
+  blendMode(ADD);
+  background(0, 80, 160);
+
+  // circle 13
+  fill(10, 90, 170, 60);
+  int rndOffset = 400;
+
+  noStroke();
+  ellipse(ellipsesX + 500 + random(1, rndOffset), ellipsesY - 500 + random(1, rndOffset), 3000, 3000);
+
+  // circle 12
+  fill(180, 100, 20, 60);
+  noStroke();
+  ellipse(ellipsesX + 450 + random(1, rndOffset), ellipsesY - 450 + random(1, rndOffset), 2000, 2000);
+
+  // circle 11
+  fill(190, 110, 30, 60);
+  noStroke();
+  ellipse(ellipsesX + 400 + random(1, rndOffset), ellipsesY - 400 + random(1, rndOffset), 1800, 1800);
+
+  // circle 10
+  fill(200, 120, 40, 60);
+  noStroke();
+  ellipse(ellipsesX + 350 + random(1, rndOffset), ellipsesY - 350 + random(1, rndOffset), 1200, 1200);
+  
+  // circle 1
+  fill(255, 255, 255, 90);
+  noStroke();
+  ellipse(ellipsesX + random(1, rndOffset), ellipsesY + random(1, rndOffset), 50, 50);
+  
+  ellipsesX += ellipsesXSpeed;
+  ellipsesY += ellipsesYSpeed;
+
+  if (ellipsesX > width - 25 || ellipsesX < 25) { // 25 is half the diameter of the circle
+    ellipsesXSpeed *= -1; // Reverse the horizontal direction
+  }
+  
+  if (ellipsesY > height - 25 || ellipsesY < 25) {
+    ellipsesYSpeed *= -1; // Reverse the vertical direction
+  }
+}
+
+
 void rectyMess() {
   background(0);
 
@@ -259,13 +340,13 @@ void pulsatingRectangles() {
     }
 }
 
-void starLines(int rA, int gA, int bA, int rB, int gB, int bB) {
+void starLines(int rA, int gA, int bA) {
   noStroke();
   
   // Gradient
   for (int y = 0; y < height; y++) {
     float inter = map(y, 0, height, 0, 1);
-    int c = lerpColor(color(rA, gA, bA), color(rB, gB, bB), inter);
+    int c = lerpColor(color(rA, gA, bA), color(gA, bA, rA), inter);
     stroke(c);
     line(0, y, width, y);
   }
@@ -299,19 +380,30 @@ void glitchTextFlash(String glitchedText, int colR, int colG, int colB) {
 
   float distortionAmount = sin(angleOffset) * 40;
   
-  fill(255);
+  fill(255, 255, 255, 60);
   text(glitchedText, width / 2, height / 2);
   
-  fill(255, 0, 0, 100);
+  fill(255, 0, 0, 60);
   text(glitchedText, width / 2 + distortionAmount, height / 2);
   
-  fill(0, 255, 0, 100);
+  fill(0, 255, 0, 60);
   text(glitchedText, width / 2 - distortionAmount, height / 2);
   
-  fill(0, 0, 255, 100);
+  fill(0, 0, 255, 60);
   text(glitchedText, width / 2, height / 2 + distortionAmount);
 
   angleOffset += 2;
+}
+
+void blinkColors() {
+  int currentTime = millis(); // Get the current time
+
+  if (currentTime - lastChangeTime > changeInterval) {
+    currentColorIndex = (currentColorIndex + 1) % blinkyColors.length; // Update the color index
+    lastChangeTime = currentTime; // Update the last change time
+  }
+  
+  background(blinkyColors[currentColorIndex]); // Set the background color
 }
 
 void creditScroll() {
