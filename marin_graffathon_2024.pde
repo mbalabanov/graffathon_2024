@@ -1,8 +1,10 @@
 
 /*
-Music Credits
-=============
-"Kick Shock" Kevin MacLeod (incompetech.com)
+Proecessing demo by Marin "Bala-Koala" Balabanov
+Website: http://marincomics.com
+Demozoo: https://demozoo.org/sceners/133212/
+
+The music is "Kick Shock" by Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
 */
