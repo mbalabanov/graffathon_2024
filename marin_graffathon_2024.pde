@@ -46,7 +46,7 @@ String[] lines = {
   "Music \"Go Cart - Loop Mix\" by Kevin MacLeod",
   "(incompetech.com)",
   " ",
-  "Made for Graffathon 2024",
+  "Made at Graffathon 2024",
   "using Processing"
 };
 float textY;
@@ -89,8 +89,8 @@ float minRadius = 100;
 float speed = 5;
 
 void setup() {
-  // noCursor();
-  // fullScreen();
+  noCursor();
+  fullScreen();
   size(1920, 1080);
   // size(1920, 1080, P3D);
   startTime = millis();
@@ -109,18 +109,16 @@ void draw() {
     background(0);
   } else if (elapsedTime < 4000) {
     glitchTextFlash("GLITCH", 64, 0, 0, 540);
-  } else if (elapsedTime < 7000) {
+  } else if (elapsedTime < 8000) {
     starLines(255, 100, 150);
-  } else if (elapsedTime < 9000) {
+  } else if (elapsedTime < 10000) {
     rectyMess();
   } else if (elapsedTime < 11000) {
     glitchTextFlash("EPI", 255, 96, 64, 800);
   } else if (elapsedTime < 12000) {
-    glitchTextFlash("LEP", 64, 128, 200, 800);
+    glitchTextFlash("LEP", 200, 45, 64, 800);
   } else if (elapsedTime < 13000) {
-    glitchTextFlash("SÍ", 64, 128, 200, 800);
-  } else if (elapsedTime < 15000) {
-    starLines(128, 255, 64);
+    glitchTextFlash("SÍ", 40, 208, 250, 800);
   } else if (elapsedTime < 19600) {
     rectyMess();
   } else if (elapsedTime < 22000) {
@@ -135,7 +133,7 @@ void draw() {
     blinkColors();
   } else if (elapsedTime < 65000) {
     creditScroll();
-  } else if (elapsedTime < 67000) {
+  } else if (elapsedTime < 69000) {
     expandingCircles();
   } else {
     stopDemo();
@@ -322,9 +320,9 @@ void starLines(int rA, int gA, int bA) {
   
   float spacing = TWO_PI / numLines;
   for (int i = 0; i < numLines; i++) {
-    // fill(210, 130, 50, 40);
-    // noStroke();
-    ellipse(0, 0, 100 * i, 100 * i);
+    noStroke();
+    fill(210, 130, 50, 40);
+    ellipse(width / 2, height / 2, 120 * i, 120 * i);
         
     float x = cos(angle + spacing * i) * 1200;
     float y = sin(angle + spacing * i) * 1200;
@@ -392,7 +390,7 @@ void expandingCircles() {
     textSize(80);
     textAlign(CENTER, CENTER);
     fill(220, 200, 20);    
-    text("Special thanks to the Graffathon organizers!", width / 2, height / 2);
+    text("Special thanks to the\nGraffathon organizers!", width / 2, height / 2 + 400);
   }
 }
 
