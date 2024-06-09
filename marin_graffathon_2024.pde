@@ -1,5 +1,6 @@
 /*
-Proecessing demo by Marin "Bala-Koala" Balabanov
+GLITCH EPI LEP SÍ ITCH
+Processing demo by Marin "Bala-Koala" Balabanov
 Website: http://marincomics.com
 Demozoo: https://demozoo.org/sceners/133212/
 
@@ -24,8 +25,8 @@ float ellipsesYSpeed = 20;
 // Init for recty mess scene
 float rectyX;
 float rectyY;
-float rectyXSpeed = 10;
-float rectyYSpeed = 10;
+float rectyXSpeed = 60;
+float rectyYSpeed = 60;
 int rectSize1 = 400;
 int rectSize2 = 1800;
 int rectSize3 = 4000;
@@ -88,10 +89,10 @@ float minRadius = 100;
 float speed = 5;
 
 void setup() {
-  noCursor();
-  fullScreen();
-  // size(1920, 1080);
-  size(1920, 1080, P3D);
+  // noCursor();
+  // fullScreen();
+  size(1920, 1080);
+  // size(1920, 1080, P3D);
   startTime = millis();
   
   minim = new Minim(this);
@@ -104,23 +105,29 @@ void setup() {
 void draw() {
   int elapsedTime = millis() - startTime;
 
-  if (elapsedTime < 3000) {
-    glitchTextFlash("GLITCH", 64, 0, 0);
+  if (elapsedTime < 1000) { 
+    background(0);
+  } else if (elapsedTime < 4000) {
+    glitchTextFlash("GLITCH", 64, 0, 0, 540);
   } else if (elapsedTime < 7000) {
     starLines(255, 100, 150);
   } else if (elapsedTime < 9000) {
     rectyMess();
   } else if (elapsedTime < 11000) {
-    glitchTextFlash("PITCH", 255, 96, 64);
-  } else if (elapsedTime < 14000) {
+    glitchTextFlash("EPI", 255, 96, 64, 800);
+  } else if (elapsedTime < 12000) {
+    glitchTextFlash("LEP", 64, 128, 200, 800);
+  } else if (elapsedTime < 13000) {
+    glitchTextFlash("SÍ", 64, 128, 200, 800);
+  } else if (elapsedTime < 15000) {
     starLines(128, 255, 64);
   } else if (elapsedTime < 19600) {
     rectyMess();
   } else if (elapsedTime < 22000) {
     starLines(192, 128, 32);
   } else if (elapsedTime < 25000) {
-    glitchTextFlash("ITCH", 64, 128, 200);
-  } else if (elapsedTime < 29000) {
+    glitchTextFlash("ITCH", 64, 128, 200, 600);
+  } else if (elapsedTime < 28000) {
     bouncingEllipses();
   } else if (elapsedTime < 43000) {
     pulsatingRectangles();
@@ -132,6 +139,7 @@ void draw() {
     expandingCircles();
   } else {
     stopDemo();
+    background(0);
   }
 
 }
@@ -314,6 +322,10 @@ void starLines(int rA, int gA, int bA) {
   
   float spacing = TWO_PI / numLines;
   for (int i = 0; i < numLines; i++) {
+    // fill(210, 130, 50, 40);
+    // noStroke();
+    ellipse(0, 0, 100 * i, 100 * i);
+        
     float x = cos(angle + spacing * i) * 1200;
     float y = sin(angle + spacing * i) * 1200;
     
@@ -326,8 +338,8 @@ void starLines(int rA, int gA, int bA) {
 }
 
 
-void glitchTextFlash(String glitchedText, int colR, int colG, int colB) {
-  font = createFont("Arial", 540, true);
+void glitchTextFlash(String glitchedText, int colR, int colG, int colB, int textSize) {
+  font = createFont("Arial", textSize, true);
   textFont(font);
   textAlign(CENTER, CENTER);
 
@@ -376,6 +388,11 @@ void expandingCircles() {
 
     fill(random(1, 255), random(1, 255), random(1, 255), alpha);
     ellipse(width / 2, y, radius * 2, radius * 2);
+
+    textSize(80);
+    textAlign(CENTER, CENTER);
+    fill(220, 200, 20);    
+    text("Special thanks to the Graffathon organizers!", width / 2, height / 2);
   }
 }
 
